@@ -23,39 +23,24 @@ let cantidadColumnas=matriz[0].length;
 
 
 j=0;
+let posicion=[]
 function detectarColumna(){
     for(let i=0;i<abecedario.length;i++){ //iterará por cada una de las letras (porque puede crecer el array)
       if(matriz[j][i]=="I"){
         console.log("El valor Inicial esta en la columna: "+abecedario[i]);
+        posicion.push(j);
+        posicion.push(i);
+        console.log("imprimiendo posicion[renglon,columna]: "+posicion);
         break;
       }
-      if(i==cantidadColumnas){
-        //console.log("No se encontró I, en esta fila. Pasando a siguiente fila...");
+      if(i==cantidadColumnas){ //esto se cumple cuando se llega a la ultima columna.
         j++; //pasar a la siguiente fila
         detectarColumna();
       }
     }//concluye for general
 }//concluye detectarColumnaNumero()
 
-function detectarFila(){
-  for(i=0;i<cantidadFilas;i++){
-    if(matriz[i][j]==undefined){
-      break;
-    }
-    console.log("El valor "+matriz[i][j]+ " está en la fila: "+i);
-  }
-}//concluye detectarFila();
-function combinacion(){
-  detectarColumna(j);
-  detectarFila(j);
-}
 
-/*
-for(let l=0;l<15;l++){
-  combinacion();
-  j++;
-}
-*/
 detectarColumna();
 /*IDEAS GENERALES DE COMO RESOLVERLO
 -Lograr algoritmo que identifique tanto la columna, como la fila en la que esta un elemento.

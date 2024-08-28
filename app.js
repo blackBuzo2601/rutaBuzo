@@ -51,24 +51,32 @@ let abajo=a+1;
 let izquierda=b-1;
 let derecha=b+1;
 
-let valores=[]; //aqui guardaremos los valores cercanos a la posicion.
+let valores=[]; //aqui guardaremos los numeros de del numero arriba,abajo,izquierda y derecha de la posicion.
+let menorNumero=0; //variable que almacenará el numero mas pequeño de las 4 posiciones
+let valoresBoolean=[true,true,true,true];
+
 function guardarCuatroValores(){
 
-  
   valores.push(matriz[arriba][b]);
-  
   valores.push(matriz[abajo][b]);
-
   valores.push(matriz[a][izquierda]);
-
   valores.push(matriz[a][derecha]);
 
+  
+  menorNumero=Math.min(valores[0],valores[1],valores[2],valores[3]);
+  console.log("El menor numero es: "+menorNumero);
 
+  for(i=0;i<valores.length;i++){
+    if(valores[i]==menorNumero){
+      valoresBoolean[i]=false;
+      console.log("imprimiendo valoresBoolean despues de identificar numero menor: "+valoresBoolean);
+    }
+  }
 
+  //guardar el indice, para en el otro array, activar bandera en el mismo indice.
 }
 
 guardarCuatroValores();
-console.log("los cuatro valores son: "+valores);
 
 /*IDEAS GENERALES DE COMO RESOLVERLO
 -Lograr algoritmo que identifique tanto la columna, como la fila en la que esta un elemento.

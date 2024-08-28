@@ -23,11 +23,10 @@ let cantidadColumnas=matriz[0].length;
 
 
 j=0;
-let posicion=[]
-function detectarColumna(){
+let posicion=[] //almacenara la posisicion mediante renglon,columna.
+function detectarPosicionI(){
     for(let i=0;i<abecedario.length;i++){ //iterará por cada una de las letras (porque puede crecer el array)
       if(matriz[j][i]=="I"){
-        console.log("El valor Inicial esta en la columna: "+abecedario[i]);
         posicion.push(j);
         posicion.push(i);
         console.log("imprimiendo posicion[renglon,columna]: "+posicion);
@@ -35,13 +34,42 @@ function detectarColumna(){
       }
       if(i==cantidadColumnas){ //esto se cumple cuando se llega a la ultima columna.
         j++; //pasar a la siguiente fila
-        detectarColumna();
+        detectarPosicionI();
       }
     }//concluye for general
 }//concluye detectarColumnaNumero()
 
+detectarPosicionI();
 
-detectarColumna();
+let a=posicion[0]; //a almacenará la posicion del renglon
+let b=posicion[1]; //b almacenará la posicion de la column
+//posicion[renglon][columna]
+
+//Formulitas para desplazarnos en base a la posicion de renglon y columna
+let arriba=a-1;
+let abajo=a+1;
+let izquierda=b-1;
+let derecha=b+1;
+
+let valores=[]; //aqui guardaremos los valores cercanos a la posicion.
+function guardarCuatroValores(){
+
+  
+  valores.push(matriz[arriba][b]);
+  
+  valores.push(matriz[abajo][b]);
+
+  valores.push(matriz[a][izquierda]);
+
+  valores.push(matriz[a][derecha]);
+
+
+
+}
+
+guardarCuatroValores();
+console.log("los cuatro valores son: "+valores);
+
 /*IDEAS GENERALES DE COMO RESOLVERLO
 -Lograr algoritmo que identifique tanto la columna, como la fila en la que esta un elemento.
 -Con ayuda del indicador de filas y columnas, una vez identificada la fila y columna del

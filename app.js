@@ -14,6 +14,7 @@ const matriz = [
 function detectarColumna(){
     for(let i=0;i<abecedario.length;i++){ //iterará por cada una de las letras (porque puede crecer el array)
         
+        console.log("El valor: "+matriz[0][i]+ " está en la columna "+abecedario[i]);
     }
 }
 

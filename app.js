@@ -27,9 +27,11 @@ let cantidadColumnasMenos1=cantidadColumnas-1; //mismo caso que cantidadFilasMen
 let a=0; //almacenará el renglon
 let b=0; //almacenará la columna
 j=0; //valor para la posicion de las filas
+let n=0; //variable de incremento para los pares clave,valor de valoresYCoordenadas
 let posicion=[] //Declaramos un array que almacenará la posicion como [renglon],columna]
 
 let valores=[]; //aqui guardaremos los numeros de arriba,abajo,izquierda y derecha de la posicion.
+let valoresYCoordenadas=[]; //tanto los numeros, como sus respectivas coordenadas en tipo clave,valor
 let menorNumero=0; //variable que almacenará el numero mas pequeño de las 4 posiciones
 
 //variables que juegan un papel importante al momento de calcular alrededor de la posicion.
@@ -43,7 +45,9 @@ let coordenadaArriba=[]; //De igual forma solo tendran dos posiciones, haciendo 
 let coordenadaAbajo=[];
 let coordenadaIzquierda=[];
 let coordenadaDerecha=[];
-let coordenadasTemporales=[];
+
+
+
 
 //░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
@@ -82,13 +86,14 @@ function detectarCuatroValores(){
   abajo=a+1;
   izquierda=b-1;
   derecha=b+1;
+  n=0; //reiniciar variable
   
   //Reiniciar coordenadas.
   coordenadaArriba=[];
   coordenadaAbajo=[];
   coordenadaIzquierda=[];
   coordenadaDerecha=[];
-  coordenadasTemporales=[ , , , ]
+  valoresYCoordenadas=[];
 
   //tomamos como referencia la posicion con las variables a(renglon) y b(columna) para acceder
   //a la matriz y detectar los valores cercanos de la posición.
@@ -99,6 +104,10 @@ function detectarCuatroValores(){
     valores.push(matriz[arriba][b]); //valores[0]
     coordenadaArriba[0]=a-1; //renglon
     coordenadaArriba[1]=b; //columna
+
+    valoresYCoordenadas[n]=matriz[arriba][b];
+    n++;
+    valoresYCoordenadas[n]=coordenadaArriba;
     console.log("Prueba de coordenadas de arriba: "+coordenadaArriba);
   }
 
@@ -108,6 +117,14 @@ function detectarCuatroValores(){
     valores.push(matriz[abajo][b]);  //valores[1]
     coordenadaAbajo[0]=a+1;
     coordenadaAbajo[1]=b;
+
+    if(n!=0){ //si ya se ha metido algun valor en valoresYCoordenadas, sino empezar en cero
+      n++;
+    }
+    valoresYCoordenadas[n]=matriz[abajo][b];
+    n++;
+    valoresYCoordenadas[n]=coordenadaAbajo;
+
     console.log("Prueba de coordenadas de abajo: "+coordenadaAbajo);
   }
 
@@ -117,6 +134,13 @@ function detectarCuatroValores(){
     valores.push(matriz[a][izquierda]);//valores[2]
     coordenadaIzquierda[0]=a;
     coordenadaIzquierda[1]=b-1;
+
+    if(n!=0){ //si ya se ha metido algun valor en valoresYCoordenadas,sino empezar en cero
+      n++;
+    }
+    valoresYCoordenadas[n]=matriz[a][izquierda];
+    n++;
+    valoresYCoordenadas[n]=coordenadaIzquierda;
     console.log("Prueba de coordenadas de izquierda: "+coordenadaIzquierda);
   }
 
@@ -126,6 +150,14 @@ function detectarCuatroValores(){
     valores.push(matriz[a][derecha]); //valores[3]
     coordenadaDerecha[0]=a;
     coordenadaDerecha[1]=b+1;
+
+    if(n!=0){ //si ya se ha metido algun valor en valoresYCoordenadas,sino empezar en cero
+      n++;
+    }
+    valoresYCoordenadas[n]=matriz[a][derecha];
+    n++;
+    valoresYCoordenadas[n]=coordenadaDerecha;
+
     console.log("Prueba de coordenadas de derecha: "+coordenadaDerecha)
   }
   
@@ -141,14 +173,13 @@ function detectarCuatroValores(){
 
 }//concluye funcion detectarCuatroValores
 
-function guardarCoordenadaSigPos(){
-
-}
 
 function moverPosicionSiguiente(){
-  for(i=0;valores.length;i++){
-    if(valores[i]==menorNumero){
-      
+  for(i=0;valoresYCoordenadas.length;i++){
+    if(valoresYCoordenadas[i]==menorNumero){
+      posicion[0]= valoresYCoordenadas[i+1][0]//fila
+      posicion[1]= valoresYCoordenadas[i+1][1]//fila
+      console.log("LA NUEVA POSICION ES: "+posicion)
     }
   }
 }
@@ -156,7 +187,7 @@ function moverPosicionSiguiente(){
 detectarPosicionI();
 detectarCuatroValores();
 moverPosicionSiguiente();
-
+console.log("Imprimiendo el arreglo que tiene los pares: "+valoresYCoordenadas);
 
 /*IDEAS GENERALES DE COMO RESOLVERLO
 

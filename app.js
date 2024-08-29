@@ -15,8 +15,8 @@ const matriz =[
 [3,3,-3,-2,3,-3,-1,-3,3,-2,2,-2,-1],
 [-2,-2,1,0,-1,0,3,0,0,-2,2,-3,-1],
 [-3,3,0,-1,-3,1,2,-3,2,-3,0,2,-2],
-[-3,-3,-3,3,-2,0,-2,-3,1,0,1,-1,-2],
-[-1,0,1,2,1,0,'F',0,-3,3,3,-2,"I"],
+[-3,-3,"I",3,-2,0,-2,-3,1,0,1,-1,-2],
+[-1,0,1,2,1,0,'F',0,-3,3,3,-2,5],
 [3,-3,4,0,1,2,3,1,-2,3,3,0,3]
 ]
 let cantidadFilas=matriz.length; //13
@@ -101,15 +101,20 @@ function detectarCuatroValores(){
     valores.push(matriz[a][derecha]); //valores[3]
   }
   
-  //usamos el objeto Math y usamos el método min para devolver el numero mas pequeño. 
-  menorNumero=Math.min(valores[0],valores[1],valores[2],valores[3]);
+  //usamos el objeto Math y usamos el método min para devolver el numero mas pequeño.
+  menorNumero=Math.min(...valores); //Operador de propagación.
+  /*
+  Operador de Propagación (...): Este operador "expande" 
+  los elementos del arreglo, permitiendo que Math.min los reciba 
+  como una lista de argumentos individuales en lugar de un solo argumento, el cual
+  sería el array, lo que daría error de nAn. (Not a number) */
+
+  console.log("Valores encontrados alrededor de la posicion: "+valores);
   console.log("El valor más pequeño de las cuatro posiciones es: "+menorNumero);
 
 }//concluye funcion detectarCuatroValores
 
 detectarPosicionI();
-//Despues de llamar la funcion que detecta la posición,
-
 detectarCuatroValores();
 
 

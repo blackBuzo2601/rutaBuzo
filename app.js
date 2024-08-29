@@ -6,7 +6,7 @@ const abecedario="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 const matriz =[
 [-3,-3,2,-3,3,-2,-2,1,2,0,2,0,1],
-[2,3,'I',-1,-1,3,2,0,-3,-3,2,2,1],
+[2,3,4,-1,-1,3,2,0,-3,-3,2,2,1],
 [1,-3,-3,2,3,1,3,3,2,1,-2,-2,3],
 [0,0,3,0,3,-3,-2,-3,0,2,2,1,1],
 [2,-1,-1,-3,3,3,0,-3,1,-2,2,0,1],
@@ -16,14 +16,29 @@ const matriz =[
 [-2,-2,1,0,-1,0,3,0,0,-2,2,-3,-1],
 [-3,3,0,-1,-3,1,2,-3,2,-3,0,2,-2],
 [-3,-3,-3,3,-2,0,-2,-3,1,0,1,-1,-2],
-[-1,0,1,2,1,0,'F',0,-3,3,3,-2,-1],
-[1,-3,1,0,1,2,3,1,-2,3,3,0,3]
+[-1,0,1,2,1,0,'F',0,-3,3,3,-2,"I"],
+[3,-3,4,0,1,2,3,1,-2,3,3,0,3]
 ]
-let cantidadFilas=matriz.length;
-let cantidadColumnas=matriz[0].length;
+let cantidadFilas=matriz.length; //13
+let cantidadFilasMenos1=cantidadFilas-1; //tuve problemas de notANumber, por eso lo cree.
 
+let cantidadColumnas=matriz[0].length; //13
+let cantidadColumnasMenos1=cantidadColumnas-1; //mismo caso que cantidadFilasMenos1
+let a=0; //almacenará el renglon
+let b=0; //almacenará la columna
 j=0; //valor para la posicion de las filas
 let posicion=[] //Declaramos un array que almacenará la posicion como [renglon],columna]
+
+let valores=[]; //aqui guardaremos los numeros de arriba,abajo,izquierda y derecha de la posicion.
+let menorNumero=0; //variable que almacenará el numero mas pequeño de las 4 posiciones
+
+//variables que juegan un papel importante al momento de calcular alrededor de la posicion.
+let arriba=0
+let abajo=0
+let izquierda=0
+let derecha=0
+
+//░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 function detectarPosicionI(){ //buscamos que esta funcion sea reutilizable desde el INICIO del algoritmo.
     for(let i=0;i<abecedario.length;i++){ //este for iterará por cada letra del abecedario
@@ -39,6 +54,9 @@ function detectarPosicionI(){ //buscamos que esta funcion sea reutilizable desde
         //referirse a una letra, entonces accedemos a la posicion del abecedario indicando la posicion
         //de la columna:
         console.log("La posicion Inicial está en el renglon: "+posicion[0]+" y en la columna: "+abecedario[posicion[1]]);
+        a=posicion[0]; //variable a, almacenará la posicion del renglon
+        b=posicion[1]; //variable b, almacenará la posicion de la columna
+        //posicion[renglon][columna]  
         break;
       }else{
         if(i==cantidadColumnas){ //esto se cumple cuando se llega a la ultima columna (Letra)
@@ -50,34 +68,47 @@ function detectarPosicionI(){ //buscamos que esta funcion sea reutilizable desde
     }//concluye for general
 }//concluye detectarColumnaNumero()
 
-let valores=[]; //aqui guardaremos los numeros de arriba,abajo,izquierda y derecha de la posicion.
-let menorNumero=0; //variable que almacenará el numero mas pequeño de las 4 posiciones
-
 function detectarCuatroValores(){
+  valores=[]; //reiniciar array cada que se llame a la función.
+  arriba=a-1;
+  abajo=a+1;
+  izquierda=b-1;
+  derecha=b+1;
   //tomamos como referencia la posicion con las variables a(renglon) y b(columna) para acceder
   //a la matriz y detectar los valores cercanos de la posición.
-  valores.push(matriz[arriba][b]); //valores[0]
-  valores.push(matriz[abajo][b]);  //valores[1]
-  valores.push(matriz[a][izquierda]);//valores[2]
-  valores.push(matriz[a][derecha]); //valores[3]
+
+  if(posicion[0]==0){
+    console.log("Limite alcanzado hacia arriba.")
+  }else{
+    valores.push(matriz[arriba][b]); //valores[0]
+  }
+
+  if(posicion[0]==cantidadFilasMenos1){
+    console.log("Limite alcanzado hacia abajo.")
+  }else{
+    valores.push(matriz[abajo][b]);  //valores[1]
+  }
+
+  if(posicion[1]==0){
+    console.log("Limite alcanzado hacia la izquierda")
+  }else{
+    valores.push(matriz[a][izquierda]);//valores[2]
+  }
+
+  if(posicion[1]==cantidadColumnasMenos1){
+    console.log("Limite alcanzado hacia la derecha");
+  }else{
+    valores.push(matriz[a][derecha]); //valores[3]
+  }
   
   //usamos el objeto Math y usamos el método min para devolver el numero mas pequeño. 
   menorNumero=Math.min(valores[0],valores[1],valores[2],valores[3]);
-  //console.log("El valor más pequeño de las cuatro posiciones es: "+menorNumero);
-  console.log("De los cuatro valores, el menor numero es: "+menorNumero);
+  console.log("El valor más pequeño de las cuatro posiciones es: "+menorNumero);
+
 }//concluye funcion detectarCuatroValores
 
-
 detectarPosicionI();
-let a=posicion[0]; //variable a, almacenará la posicion del renglon
-let b=posicion[1]; //variable b, almacenará la posicion de la columna
-//posicion[renglon][columna]
-
-//Formulitas para desplazarnos en base a la posicion de renglon y columna
-let arriba=a-1;
-let abajo=a+1;
-let izquierda=b-1;
-let derecha=b+1;
+//Despues de llamar la funcion que detecta la posición,
 
 detectarCuatroValores();
 

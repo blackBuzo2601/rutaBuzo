@@ -38,6 +38,12 @@ let abajo=0
 let izquierda=0
 let derecha=0
 
+//En las siguientes variables guardamos las coordenadas de los valores de alrededor de la posicion.
+let coordenadaArriba=[]; //De igual forma solo tendran dos posiciones, haciendo referencia al renglon y columnaa
+let coordenadaAbajo=[];
+let coordenadaIzquierda=[];
+let coordenadaDerecha=[];
+
 //░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 function detectarPosicionI(){ //buscamos que esta funcion sea reutilizable desde el INICIO del algoritmo.
@@ -70,10 +76,18 @@ function detectarPosicionI(){ //buscamos que esta funcion sea reutilizable desde
 
 function detectarCuatroValores(){
   valores=[]; //reiniciar array cada que se llame a la función.
+  //formulitas en base a la posicion del renglon (a)  y columna (b) para desplazarnos por el arreglo.
   arriba=a-1;
   abajo=a+1;
   izquierda=b-1;
   derecha=b+1;
+  
+  //Reiniciar coordenadas.
+  coordenadaArriba=[];
+  coordenadaAbajo=[];
+  coordenadaIzquierda=[];
+  coordenadaDerecha=[];
+
   //tomamos como referencia la posicion con las variables a(renglon) y b(columna) para acceder
   //a la matriz y detectar los valores cercanos de la posición.
 
@@ -81,24 +95,36 @@ function detectarCuatroValores(){
     console.log("Limite alcanzado hacia arriba.")
   }else{
     valores.push(matriz[arriba][b]); //valores[0]
+    coordenadaArriba[0]=a-1; //renglon
+    coordenadaArriba[1]=b; //columna
+    console.log("Prueba de coordenadas de arriba: "+coordenadaArriba);
   }
 
   if(posicion[0]==cantidadFilasMenos1){
     console.log("Limite alcanzado hacia abajo.")
   }else{
     valores.push(matriz[abajo][b]);  //valores[1]
+    coordenadaAbajo[0]=a+1;
+    coordenadaAbajo[1]=b;
+    console.log("Prueba de coordenadas de abajo: "+coordenadaAbajo);
   }
 
   if(posicion[1]==0){
     console.log("Limite alcanzado hacia la izquierda")
   }else{
     valores.push(matriz[a][izquierda]);//valores[2]
+    coordenadaIzquierda[0]=a;
+    coordenadaIzquierda[1]=b-1;
+    console.log("Prueba de coordenadas de izquierda: "+coordenadaIzquierda);
   }
 
   if(posicion[1]==cantidadColumnasMenos1){
     console.log("Limite alcanzado hacia la derecha");
   }else{
     valores.push(matriz[a][derecha]); //valores[3]
+    coordenadaDerecha[0]=a;
+    coordenadaDerecha[1]=b+1;
+    console.log("Prueba de coordenadas de derecha: "+coordenadaDerecha)
   }
   
   //usamos el objeto Math y usamos el método min para devolver el numero mas pequeño.
@@ -108,14 +134,18 @@ function detectarCuatroValores(){
   los elementos del arreglo, permitiendo que Math.min los reciba 
   como una lista de argumentos individuales en lugar de un solo argumento, el cual
   sería el array, lo que daría error de nAn. (Not a number) */
-
   console.log("Valores encontrados alrededor de la posicion: "+valores);
   console.log("El valor más pequeño de las cuatro posiciones es: "+menorNumero);
 
 }//concluye funcion detectarCuatroValores
 
+function moverPosicionSiguiente(){
+  console.log("prueba de la funcion: "+valores.indexOf(menorNumero));
+}
+
 detectarPosicionI();
 detectarCuatroValores();
+moverPosicionSiguiente();
 
 
 /*IDEAS GENERALES DE COMO RESOLVERLO

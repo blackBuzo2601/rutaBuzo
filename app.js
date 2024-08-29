@@ -22,7 +22,6 @@ const matriz =[
 let cantidadFilas=matriz.length;
 let cantidadColumnas=matriz[0].length;
 
-
 j=0; //valor para la posicion de las filas
 let posicion=[] //Declaramos un array que almacenará la posicion como [renglon],columna]
 
@@ -51,10 +50,27 @@ function detectarPosicionI(){ //buscamos que esta funcion sea reutilizable desde
     }//concluye for general
 }//concluye detectarColumnaNumero()
 
-detectarPosicionI();
+let valores=[]; //aqui guardaremos los numeros de arriba,abajo,izquierda y derecha de la posicion.
+let menorNumero=0; //variable que almacenará el numero mas pequeño de las 4 posiciones
 
-let a=posicion[0]; //a almacenará la posicion del renglon
-let b=posicion[1]; //b almacenará la posicion de la column
+function detectarCuatroValores(){
+  //tomamos como referencia la posicion con las variables a(renglon) y b(columna) para acceder
+  //a la matriz y detectar los valores cercanos de la posición.
+  valores.push(matriz[arriba][b]); //valores[0]
+  valores.push(matriz[abajo][b]);  //valores[1]
+  valores.push(matriz[a][izquierda]);//valores[2]
+  valores.push(matriz[a][derecha]); //valores[3]
+  
+  //usamos el objeto Math y usamos el método min para devolver el numero mas pequeño. 
+  menorNumero=Math.min(valores[0],valores[1],valores[2],valores[3]);
+  //console.log("El valor más pequeño de las cuatro posiciones es: "+menorNumero);
+  console.log("De los cuatro valores, el menor numero es: "+menorNumero);
+}//concluye funcion detectarCuatroValores
+
+
+detectarPosicionI();
+let a=posicion[0]; //variable a, almacenará la posicion del renglon
+let b=posicion[1]; //variable b, almacenará la posicion de la columna
 //posicion[renglon][columna]
 
 //Formulitas para desplazarnos en base a la posicion de renglon y columna
@@ -63,45 +79,7 @@ let abajo=a+1;
 let izquierda=b-1;
 let derecha=b+1;
 
-let reglas=[arriba,abajo,izquierda,derecha];
-let valores=[]; //aqui guardaremos los numeros de del numero arriba,abajo,izquierda y derecha de la posicion.
-let menorNumero=0; //variable que almacenará el numero mas pequeño de las 4 posiciones
-let valoresBoolean=[true,true,true,true];
-
-function guardarCuatroValores(){
-
-  valores.push(matriz[arriba][b]);
-  valores.push(matriz[abajo][b]);
-  valores.push(matriz[a][izquierda]);
-  valores.push(matriz[a][derecha]);
-
-  menorNumero=Math.min(valores[0],valores[1],valores[2],valores[3]);
-  console.log("El menor numero de las posiciones es: "+menorNumero+ "y está en la dirección: ");
-
-}//concluye funcion guardarCuatroValores
-
-
-function desplazarSigPos(){
-  for(i=0;i<valores.length;i++){
-    if(valores[i]==menorNumero){
-      
-    }
-  }
-}//concluye funcion desplazarSigPos
-
-
-
-guardarCuatroValores();
-
-  /*Nos servirá mas adelante este bloque de aqui
-  for(i=0;i<valores.length;i++){
-    if(valores[i]==menorNumero){
-      valoresBoolean[i]=false;
-      console.log("imprimiendo valoresBoolean despues de identificar numero menor: "+valoresBoolean);
-      break;
-    }
-  }
-*/
+detectarCuatroValores();
 
 
 /*IDEAS GENERALES DE COMO RESOLVERLO

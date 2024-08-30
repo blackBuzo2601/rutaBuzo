@@ -16,8 +16,8 @@ const matriz =[
 [-2,-2,1,0,-1,0,3,0,0,-2,2,-3,-1],
 [-3,3,0,-1,-3,1,2,-3,2,-3,0,2,-2],
 [4,-3,4,3,-2,0,-2,-3,1,0,1,-1,-2],
-[-1,0,"I",2,1,0,'F',0,-3,3,3,-2,5],
-[4,-3,4,0,1,2,3,1,-2,3,3,0,3]
+[-1,0,4,2,1,0,'F',0,-3,3,3,-2,5],
+["I",-3,4,0,1,2,3,1,-2,3,3,0,3]
 ]
 let cantidadFilas=matriz.length; //13
 let cantidadFilasMenos1=cantidadFilas-1; //tuve problemas de notANumber, por eso lo cree.
@@ -82,6 +82,7 @@ function detectarPosicionI(){ //buscamos que esta funcion sea reutilizable desde
 function detectarCuatroValores(){
   valores=[]; //reiniciar array cada que se llame a la función.
   //formulitas en base a la posicion del renglon (a)  y columna (b) para desplazarnos por el arreglo.
+  
   arriba=a-1;
   abajo=a+1;
   izquierda=b-1;
@@ -170,7 +171,7 @@ function detectarCuatroValores(){
   sería el array, lo que daría error de nAn. (Not a number) */
   console.log("\n\nArray valores: "+valores);
   console.log("El valor más pequeño de las cuatro posiciones es: "+menorNumero);
-
+  moverPosicionSiguiente();
 }//concluye funcion detectarCuatroValores
 
 
@@ -179,21 +180,18 @@ function moverPosicionSiguiente(){
     if(valoresYCoordenadas[i]==menorNumero){
       posicion[0]= valoresYCoordenadas[i+1][0]//fila
       posicion[1]= valoresYCoordenadas[i+1][1]//fila
-      console.log("LA NUEVA POSICION ES: "+posicion)
+      console.log("Los nuevos valores de posicion son: "+posicion);
+      detectarCuatroValores();
     }
   }
 }
 
 detectarPosicionI();
+
 detectarCuatroValores();
-moverPosicionSiguiente();
-console.log("Imprimiendo el arreglo que tiene los pares: "+valoresYCoordenadas);
 
-/*IDEAS GENERALES DE COMO RESOLVERLO
+//moverPosicionSiguiente();
 
- 
-Activaremos la bandera de hacia donde nos moveremos, para que en el siguiente 
-movimiento, ignoremos dicha direccion (pues no queremos regresarnos, sino buscar un camino
-  diferente.)
+//console.log("Imprimiendo el arreglo que tiene los pares: "+valoresYCoordenadas);
 
-*/
+
